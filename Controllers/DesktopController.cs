@@ -79,7 +79,7 @@ public class DesktopController : ControllerBase
     }
 
     /// <summary>
-    /// 查询出对应的 asset
+    /// 查询出对应的 asset 以及他所在的部门和上次保养日期
     /// </summary>
     /// <param name="upkeepId">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
     /// <returns>返回 asset 集合</returns>
@@ -97,6 +97,7 @@ public class DesktopController : ControllerBase
         return Ok(dtoCollection);
     }
 
+    
     [HttpGet("UpkeepRecord/AssetId")]
     public async Task<ActionResult<IEnumerable<UpkeepRecordDisplayDto>>> GetUpkeepRecordCollectionAsync(
         [FromQuery] int assetId)

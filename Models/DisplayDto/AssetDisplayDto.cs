@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using DesktopS3API.Entities;
 
 namespace DesktopS3API.Models.DisplayDto;
@@ -15,4 +17,5 @@ public class AssetDisplayDto
     public DateTime? ServiceDate { get; set; }
     public DateTime RegistrationTime { get; set; }
     public DepartmentDisplayDto Department { get; set; }
+    public IEnumerable<UpkeepRecordDisplayDto> UpkeepRecords { get; set; }
 }

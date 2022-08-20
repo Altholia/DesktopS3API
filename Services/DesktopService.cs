@@ -31,7 +31,7 @@ public class DesktopService:IDesktopService
                 r.Telephone == parameter.Telephone.Trim() && r.Password == parameter.Password.Trim());
 
     /// <summary>
-    /// 查询出对应的 Asset 以及它所在的部门 Department
+    /// 查询出对应的 Asset 以及它所在的部门 Department和他的保养记录
     /// </summary>
     /// <param name="upkeepId">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
     /// <returns>返回 asset 集合</returns>
@@ -43,7 +43,7 @@ public class DesktopService:IDesktopService
             linq = linq.Where(r => r.UpkeepTypeId == upkeepId);
         }
 
-        return await linq.Include(r=>r.Department).ToListAsync();
+        return await linq.Include(r=>r.UpkeepRecords).Include(r=>r.Department).ToListAsync();
     }
 
     /// <summary>
