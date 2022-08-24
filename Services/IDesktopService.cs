@@ -11,5 +11,6 @@ public interface IDesktopService
     Task<Staff> GetStaffAsync(GetStaff parameter);
     Task<IEnumerable<Asset>> GetAssetCollectionAsync(int? upkeepId);
     Task<UpkeepType> GetUpkeepTypeByNameAsync(string upkeepName);
+    Task<IEnumerable<UpkeepType>> GetUpkeepTypeCollectionAsync();
     Task<IEnumerable<UpkeepRecord>> GetUpkeepRecordByAssetIdAsync(int assetId);
 }

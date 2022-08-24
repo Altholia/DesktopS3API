@@ -56,6 +56,20 @@ public class DesktopService:IDesktopService
             .TagWith("根据保养类型的名称查询出 UpkeepType")
             .FirstOrDefaultAsync(r => r.Name == upkeepName.Trim());
 
+    /// <summary>
+    /// 查询出所有的 UpkeepType
+    /// </summary>
+    /// <returns>返回查询到的 UpkeepType 集合</returns>
+    public async Task<IEnumerable<UpkeepType>> GetUpkeepTypeCollectionAsync() =>
+        await _context.UpkeepTypes
+            .TagWith("查询出所有的 UpkeepType 类型")
+            .ToListAsync();
+
+    /// <summary>
+    /// 根据 AssetId 查询出对应的 UpkeepRecord 集合
+    /// </summary>
+    /// <param name="assetId">资产ID</param>
+    /// <returns>返回查询到的 UpkeepRecord 集合</returns>
     public async Task<IEnumerable<UpkeepRecord>> GetUpkeepRecordByAssetIdAsync(int assetId) =>
         await _context.UpkeepRecords
             .TagWith("根据 AssetId 查询出对应的 UpkeepRecord 集合")
