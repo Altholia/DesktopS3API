@@ -17,5 +17,6 @@ public class Profiles:Profile
         CreateMap<Department, DepartmentDisplayDto>();
         CreateMap<UpkeepType, UpkeepTypeDisplay>();
         CreateMap<UpkeepRecord, UpkeepRecordDisplayDto>();
+        CreateMap<AssetCategory, AssetCategoryDisplayDto>();
     }
 }

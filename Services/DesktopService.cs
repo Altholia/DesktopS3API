@@ -47,6 +47,15 @@ public class DesktopService:IDesktopService
     }
 
     /// <summary>
+    /// 查询出所有的 AssetCategory 信息
+    /// </summary>
+    /// <returns></returns>
+    public async Task<IEnumerable<AssetCategory>> GetAssetCategoryCollectionAsync() =>
+        await _context.AssetCategories
+            .TagWith("查询所有的 AssetCategory 信息")
+            .ToListAsync();
+
+    /// <summary>
     /// 根据保养类型的名称查询出 UpkeepType
     /// </summary>
     /// <param name="upkeepName">保养类型的名称</param>

@@ -34,7 +34,7 @@ public class DesktopController : ControllerBase
     /// <returns>返回 staff 实体信息</returns>
     /// <exception cref="ArgumentNullException"></exception>
     [HttpPost("Staff")]
-    public async Task<ActionResult<StaffDisplayDto>> GetStaffAsync([FromBody] GetStaff parameter)
+    public async Task<ActionResult<StaffDisplayDto>> GetStaff([FromBody] GetStaff parameter)
     {
         if (parameter == null)
         {
@@ -97,7 +97,7 @@ public class DesktopController : ControllerBase
     /// </summary>
     /// <param name="upkeepId">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
     /// <returns>返回 asset 集合</returns>
-    [HttpGet("asset/{upkeepId:int?}")]
+    [HttpGet("Asset/{upkeepId:int?}")]
     public async Task<ActionResult<IEnumerable<AssetDisplayDto>>> GetAssetCollection([FromRoute] int? upkeepId)
     {
         IEnumerable<Asset> assetCollection = await _service.GetAssetCollectionAsync(upkeepId);
@@ -118,7 +118,7 @@ public class DesktopController : ControllerBase
     /// <param name="assetId">资产ID</param>
     /// <returns>返回查询到的 UpkeepRecord 集合</returns>
     [HttpGet("UpkeepRecord/AssetId")]
-    public async Task<ActionResult<IEnumerable<UpkeepRecordDisplayDto>>> GetUpkeepRecordCollectionAsync(
+    public async Task<ActionResult<IEnumerable<UpkeepRecordDisplayDto>>> GetUpkeepRecordCollection(
         [FromQuery] int assetId)
     {
         var upkeepRecords = await _service.GetUpkeepRecordByAssetIdAsync(assetId);
@@ -129,6 +129,20 @@ public class DesktopController : ControllerBase
         }
 
         var dtoCollection = _mapper.Map<IEnumerable<UpkeepRecordDisplayDto>>(upkeepRecords);
+        return Ok(dtoCollection);
+    }
+
+    [HttpGet("AssetCategories")]
+    public async Task<ActionResult<IEnumerable<AssetCategoryDisplayDto>>> GetAssetCategoryCollection()
+    {
+        var entities = await _service.GetAssetCategoryCollectionAsync();
+        if (!entities.Any())
+        {
+            _logger.LogWarning("没有查询到与 AssetCategory 相关的信息");
+            return NotFound();
+        }
+
+        var dtoCollection = _mapper.Map<IEnumerable<AssetCategoryDisplayDto>>(entities);
         return Ok(dtoCollection);
     }
 }
