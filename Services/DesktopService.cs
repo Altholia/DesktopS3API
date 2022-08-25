@@ -33,15 +33,16 @@ public class DesktopService:IDesktopService
     /// <summary>
     /// 查询出对应的 Asset 以及它所在的部门 Department和他的保养记录
     /// </summary>
-    /// <param name="upkeepId">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
+    /// <param name="parameter">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
     /// <returns>返回 asset 集合</returns>
-    public async Task<IEnumerable<Asset>> GetAssetCollectionAsync(int? upkeepId)
+    public async Task<IEnumerable<Asset>> GetAssetCollectionAsync(GetAssetCollection parameter)
     {
         IQueryable<Asset> linq = _context.Assets.TagWith("查询出所有对应的 Asset 信息") as IQueryable<Asset>;
-        if (upkeepId != null)
-        {
-            linq = linq.Where(r => r.UpkeepTypeId == upkeepId);
-        }
+
+        if (parameter.AssetId != null)
+            linq = linq.Where(r => r.Id == parameter.AssetId);
+        if (parameter.UpkeepTypeId != null)
+            linq = linq.Where(r => r.UpkeepTypeId == parameter.UpkeepTypeId);
 
         return await linq.Include(r=>r.UpkeepRecords).Include(r=>r.Department).ToListAsync();
     }

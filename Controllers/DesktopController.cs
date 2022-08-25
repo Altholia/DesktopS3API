@@ -95,12 +95,18 @@ public class DesktopController : ControllerBase
     /// <summary>
     /// 查询出对应的 asset 以及他所在的部门和上次保养日期
     /// </summary>
-    /// <param name="upkeepId">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
+    /// <param name="parameter">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
     /// <returns>返回 asset 集合</returns>
-    [HttpGet("Asset/{upkeepId:int?}")]
-    public async Task<ActionResult<IEnumerable<AssetDisplayDto>>> GetAssetCollection([FromRoute] int? upkeepId)
+    [HttpPost("Asset")]
+    public async Task<ActionResult<IEnumerable<AssetDisplayDto>>> GetAssetCollection([FromBody] GetAssetCollection parameter)
     {
-        IEnumerable<Asset> assetCollection = await _service.GetAssetCollectionAsync(upkeepId);
+        if (parameter == null)
+        {
+            _logger.LogError($"{nameof(GetAssetCollection)}：用户输入的参数为空");
+            return BadRequest("用户输入的参数为空");
+        }
+
+        IEnumerable<Asset> assetCollection = await _service.GetAssetCollectionAsync(parameter);
         if (!assetCollection.Any())
         {
             _logger.LogWarning("没有对应的 Asset 实体信息");

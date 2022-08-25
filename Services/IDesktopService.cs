@@ -9,7 +9,7 @@ namespace DesktopS3API.Services;
 public interface IDesktopService
 {
     Task<Staff> GetStaffAsync(GetStaff parameter);
-    Task<IEnumerable<Asset>> GetAssetCollectionAsync(int? upkeepId);
+    Task<IEnumerable<Asset>> GetAssetCollectionAsync(GetAssetCollection parameter);
     Task<IEnumerable<AssetCategory>> GetAssetCategoryCollectionAsync();
     Task<UpkeepType> GetUpkeepTypeByNameAsync(string upkeepName);
     Task<IEnumerable<UpkeepType>> GetUpkeepTypeCollectionAsync();
