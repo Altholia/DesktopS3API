@@ -16,6 +16,7 @@ public class AssetDisplayDto
     public DateTime ManufactureDate { get; set; }
     public DateTime? ServiceDate { get; set; }
     public DateTime RegistrationTime { get; set; }
+    public int UpkeepCircle { get; set; }
     public DepartmentDisplayDto Department { get; set; }
     public IEnumerable<UpkeepRecordDisplayDto> UpkeepRecords { get; set; }
 }
