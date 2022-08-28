@@ -8,6 +8,7 @@ namespace DesktopS3API.Models.DisplayDto;
 public class AssetDisplayDto
 {
     public int Id { get; set; }
+    public int CategoryId { get; set; }
     public string AssetNumber { get; set; }
     public string Name { get; set; }
     public string Specification { get; set; }

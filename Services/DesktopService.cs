@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DesktopS3API.Entities;
 using DesktopS3API.ParameterDto;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace DesktopS3API.Services;
 
@@ -43,6 +41,10 @@ public class DesktopService:IDesktopService
             linq = linq.Where(r => r.Id == parameter.AssetId);
         if (parameter.UpkeepTypeId != null)
             linq = linq.Where(r => r.UpkeepTypeId == parameter.UpkeepTypeId);
+        if (!string.IsNullOrEmpty(parameter.AssetName))
+            linq = linq.Where(r => r.Name == parameter.AssetName);
+        if (parameter.CategoryId != null)
+            linq = linq.Where(r => r.CategoryId == parameter.CategoryId);
 
         return await linq.Include(r=>r.UpkeepRecords).Include(r=>r.Department).ToListAsync();
     }
