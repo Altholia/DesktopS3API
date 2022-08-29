@@ -50,13 +50,22 @@ public class DesktopService:IDesktopService
     }
 
     /// <summary>
-    /// 查询出所有的 AssetCategory 信息
+    /// 第一：可以返回不进行过滤的所有的AssetCategory信息
+    /// 第二：可以返回进行过滤之后的AssetCategory信息
     /// </summary>
-    /// <returns></returns>
-    public async Task<IEnumerable<AssetCategory>> GetAssetCategoryCollectionAsync() =>
-        await _context.AssetCategories
-            .TagWith("查询所有的 AssetCategory 信息")
-            .ToListAsync();
+    /// <param name="id">过滤条件：AssetCategory的Id字段</param>
+    /// <param name="name">过滤条件：AssetCategory的Name字段</param>
+    /// <returns>返回进行一系列操作之后的AssetCategory集合</returns>
+    public async Task<IEnumerable<AssetCategory>> GetAssetCategoryCollectionAsync(int? id,string name)
+    {
+        IQueryable<AssetCategory> linq = _context.AssetCategories.TagWith("根据查询条件查询AssetCategory");
+        if (!string.IsNullOrEmpty(name))
+            linq = linq.Where(r => r.Name == name);
+        if (id!=null)
+            linq = linq.Where(r => r.Id == id);
+
+        return await linq.ToListAsync();
+    }
 
     /// <summary>
     /// 根据保养类型的名称查询出 UpkeepType

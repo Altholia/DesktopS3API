@@ -139,9 +139,9 @@ public class DesktopController : ControllerBase
     }
 
     [HttpGet("AssetCategories")]
-    public async Task<ActionResult<IEnumerable<AssetCategoryDisplayDto>>> GetAssetCategoryCollection()
+    public async Task<ActionResult<IEnumerable<AssetCategoryDisplayDto>>> GetAssetCategoryCollection([FromQuery(Name="Id")] int? id, [FromQuery(Name="Name")] string name)
     {
-        var entities = await _service.GetAssetCategoryCollectionAsync();
+        var entities = await _service.GetAssetCategoryCollectionAsync(id:id,name:name);
         if (!entities.Any())
         {
             _logger.LogWarning("没有查询到与 AssetCategory 相关的信息");
