@@ -138,10 +138,14 @@ public class DesktopController : ControllerBase
         return Ok(dtoCollection);
     }
 
+    /// <summary>
+    /// 获取所有的AssetCategory信息
+    /// </summary>
+    /// <returns>返回集合</returns>
     [HttpGet("AssetCategories")]
-    public async Task<ActionResult<IEnumerable<AssetCategoryDisplayDto>>> GetAssetCategoryCollection([FromQuery(Name="Id")] int? id, [FromQuery(Name="Name")] string name)
+    public async Task<ActionResult<IEnumerable<AssetCategoryDisplayDto>>> GetAssetCategoryCollection()
     {
-        var entities = await _service.GetAssetCategoryCollectionAsync(id:id,name:name);
+        var entities = await _service.GetAssetCategoryCollectionAsync();
         if (!entities.Any())
         {
             _logger.LogWarning("没有查询到与 AssetCategory 相关的信息");
@@ -151,4 +155,30 @@ public class DesktopController : ControllerBase
         var dtoCollection = _mapper.Map<IEnumerable<AssetCategoryDisplayDto>>(entities);
         return Ok(dtoCollection);
     }
+
+    /// <summary>
+    /// 根据AssetCategory的Name属性返回指定的AssetCategory信息
+    /// </summary>
+    /// <param name="name">查询条件</param>
+    /// <returns>返回查询到的信息</returns>
+    [HttpGet("AssetCategory/{name}")]
+    public async Task<ActionResult<AssetCategoryDisplayDto>> GetAssetCategoryByName([FromRoute(Name = "Name")] string name)
+    {
+        if (name == null)
+        {
+            _logger.LogError($"{nameof(GetAssetCategoryByName)}：name查询条件为空");
+            return BadRequest("查询条件为空");
+        }
+
+        AssetCategory assetCategory = await _service.GetAssetCategoryByNameAsync(name);
+        if (assetCategory == null)
+        {
+            _logger.LogWarning($"{nameof(GetAssetCategoryByName)}：没有找到相关的实体信息");
+            return NotFound();
+        }
+
+        var dto = _mapper.Map<AssetCategoryDisplayDto>(assetCategory);
+        return Ok(dto);
+    }
+
 }
