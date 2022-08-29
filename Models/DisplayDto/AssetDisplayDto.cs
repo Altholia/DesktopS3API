@@ -20,4 +20,5 @@ public class AssetDisplayDto
     public int UpkeepCircle { get; set; }
     public DepartmentDisplayDto Department { get; set; }
     public IEnumerable<UpkeepRecordDisplayDto> UpkeepRecords { get; set; }
+    public AssetCategoryDisplayDto Category { get; set; }
 }

@@ -46,7 +46,10 @@ public class DesktopService:IDesktopService
         if (parameter.CategoryId != null)
             linq = linq.Where(r => r.CategoryId == parameter.CategoryId);
 
-        return await linq.Include(r=>r.UpkeepRecords).Include(r=>r.Department).ToListAsync();
+        return await linq.Include(r => r.UpkeepRecords)
+            .Include(r => r.Department)
+            .Include(r => r.Category)
+            .ToListAsync();
     }
 
     /// <summary>
