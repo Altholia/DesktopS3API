@@ -181,4 +181,23 @@ public class DesktopController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>
+    /// 根据Department的Id字段查询相关的Department信息
+    /// </summary>t
+    /// <param name="departmentId">Department的ID字段</param>
+    /// <returns>返回查询到的Department信息</returns>
+    [HttpGet("Department/{departmentId:int}")]
+    public async Task<ActionResult<DepartmentDisplayDto>> GetDepartmentById([FromRoute] int departmentId)
+    {
+        Department department = await _service.GetDepartmentById(departmentId);
+        if (department == null)
+        {
+            _logger.LogWarning($"{nameof(GetDepartmentById)}：无法查询到相关的Department信息");
+            return NotFound();
+        }
+
+        DepartmentDisplayDto dto = _mapper.Map<DepartmentDisplayDto>(department);
+        return Ok(dto);
+    }
+
 }

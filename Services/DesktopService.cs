@@ -100,4 +100,14 @@ public class DesktopService:IDesktopService
             .TagWith("根据 AssetId 查询出对应的 UpkeepRecord 集合")
             .Where(r => r.AssetId==assetId)
             .ToListAsync();
+
+    /// <summary>
+    /// 根据Id字段获取对应的Department
+    /// </summary>
+    /// <param name="departmentId">Department的ID字段</param>
+    /// <returns>返回查询到的Department实体信息</returns>
+    public async Task<Department> GetDepartmentById(int departmentId) =>
+        await _context.Departments
+            .TagWith("根据departmentId获取Department")
+            .FirstOrDefaultAsync(r => r.Id == departmentId);
 }

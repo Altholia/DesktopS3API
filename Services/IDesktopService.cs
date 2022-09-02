@@ -15,4 +15,5 @@ public interface IDesktopService
     Task<UpkeepType> GetUpkeepTypeByNameAsync(string upkeepName);
     Task<IEnumerable<UpkeepType>> GetUpkeepTypeCollectionAsync();
     Task<IEnumerable<UpkeepRecord>> GetUpkeepRecordByAssetIdAsync(int assetId);
+    Task<Department> GetDepartmentById(int departmentId);
 }
