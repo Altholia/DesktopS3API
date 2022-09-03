@@ -53,6 +53,16 @@ public class DesktopService:IDesktopService
     }
 
     /// <summary>
+    /// 根据Name字段查询Asset
+    /// </summary>
+    /// <param name="assetName">Asset的Name字段</param>
+    /// <returns>返回查询到的Asset</returns>
+    public async Task<Asset> GetAssetByNameAsync(string assetName) =>
+        await _context.Assets
+            .TagWith("根据Name字段查询Asset")
+            .FirstOrDefaultAsync(r => r.Name == assetName);
+
+    /// <summary>
     /// 可以返回不进行过滤的所有的AssetCategory信息
     /// </summary>
     /// <returns>返回进行一系列操作之后的AssetCategory集合</returns>

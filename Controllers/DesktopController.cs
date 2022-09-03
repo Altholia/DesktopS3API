@@ -97,7 +97,7 @@ public class DesktopController : ControllerBase
     /// </summary>
     /// <param name="parameter">该参数为过滤条件，可为null，当为null时则不需要进行过滤</param>
     /// <returns>返回 asset 集合</returns>
-    [HttpPost("Asset")]
+    [HttpPost("Assets")]
     public async Task<ActionResult<IEnumerable<AssetDisplayDto>>> GetAssetCollection([FromBody] GetAssetCollection parameter)
     {
         if (parameter == null)
@@ -115,6 +115,26 @@ public class DesktopController : ControllerBase
 
         var dtoCollection = _mapper.Map<IEnumerable<AssetDisplayDto>>(assetCollection);
         return Ok(dtoCollection);
+    }
+
+    [HttpGet("Asset")]
+    public async Task<ActionResult<Asset>> GetAssetByName([FromQuery] string assetName)
+    {
+        if (string.IsNullOrEmpty(assetName))
+        {
+            _logger.LogError($"{nameof(GetAssetByName)}：查询字符串assetName为空");
+            return BadRequest("查询字符串assetName为空");
+        }
+
+        Asset asset = await _service.GetAssetByNameAsync(assetName);
+        if (asset == null)
+        {
+            _logger.LogWarning("无法通过Name字段查询到Asset");
+            return NotFound();
+        }
+
+        AssetDisplayDto dto = _mapper.Map<AssetDisplayDto>(asset);
+        return Ok(dto);
     }
 
     

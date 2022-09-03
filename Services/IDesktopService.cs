@@ -10,6 +10,7 @@ public interface IDesktopService
 {
     Task<Staff> GetStaffAsync(GetStaff parameter);
     Task<IEnumerable<Asset>> GetAssetCollectionAsync(GetAssetCollection parameter);
+    Task<Asset> GetAssetByNameAsync(string assetName);
     Task<IEnumerable<AssetCategory>> GetAssetCategoryCollectionAsync();
     Task<AssetCategory> GetAssetCategoryByNameAsync(string name);
     Task<UpkeepType> GetUpkeepTypeByNameAsync(string upkeepName);
