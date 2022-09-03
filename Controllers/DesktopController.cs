@@ -220,4 +220,23 @@ public class DesktopController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>
+    /// 根据assetId查询AssetTransfer
+    /// </summary>
+    /// <param name="assetId">资产ID</param>
+    /// <returns>返回AssetTransferDisplayDto</returns>
+    [HttpGet("AssetTransfer")]
+    public async Task<ActionResult<AssetTransferDisplayDto>> GetAssetTransferByAssetId([FromQuery] int assetId)
+    {
+        AssetTransfer assetTransfer = await _service.GetAssetTransferByAssetId(assetId);
+        if (assetTransfer == null)
+        {
+            _logger.LogWarning($"{nameof(GetAssetTransferByAssetId)}：无法根据assetId查询AssetTransfer");
+            return NotFound();
+        }
+
+        AssetTransferDisplayDto dto = _mapper.Map<AssetTransferDisplayDto>(assetTransfer);
+        return Ok(dto);
+    }
+
 }
