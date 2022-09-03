@@ -125,9 +125,10 @@ public class DesktopService:IDesktopService
     /// 根据assetId查询AssetTransfer
     /// </summary>
     /// <param name="assetId">资产ID</param>
-    /// <returns>返回AssetTransfer</returns>
-    public async Task<AssetTransfer> GetAssetTransferByAssetId(int assetId) =>
+    /// <returns>返回AssetTransfer集合</returns>
+    public async Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetId(int assetId) =>
         await _context.AssetTransfers
             .TagWith("根据AssetId查询AssetTransfer")
-            .FirstOrDefaultAsync(r => r.AssetId == assetId);
+            .Where(r => r.AssetId == assetId)
+            .ToListAsync();
 }
