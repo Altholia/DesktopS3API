@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -237,6 +238,27 @@ public class DesktopController : ControllerBase
 
         IEnumerable<AssetTransferDisplayDto> dtoCollection = 
             _mapper.Map<IEnumerable<AssetTransferDisplayDto>>(assetTransfers);
+        return Ok(dtoCollection);
+    }
+
+    /// <summary>
+    /// 根据assetId查询UpkeepRecord
+    /// </summary>
+    /// <param name="assetId">资产ID</param>
+    /// <returns>返回UpkeepRecord集合</returns>
+    [HttpGet("UpkeepRecords")]
+    public async Task<ActionResult<UpkeepRecordDisplayDto>> GetUpkeepRecordCollectionByAssetId([FromQuery] int assetId)
+    {
+        IEnumerable<UpkeepRecord> upkeepRecords = await _service.GetUpkeepRecordByAssetIdAsync(assetId);
+        if (!upkeepRecords.Any())
+        {
+            _logger.LogWarning($"{nameof(GetUpkeepRecordCollectionByAssetId)}：无法通过assetId查询UpkeepRecord");
+            return NotFound();
+        }
+
+        IEnumerable<UpkeepRecordDisplayDto> dtoCollection =
+            _mapper.Map<IEnumerable<UpkeepRecordDisplayDto>>(upkeepRecords);
+
         return Ok(dtoCollection);
     }
 
