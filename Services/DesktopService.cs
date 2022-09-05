@@ -131,4 +131,22 @@ public class DesktopService:IDesktopService
             .TagWith("根据AssetId查询AssetTransfer")
             .Where(r => r.AssetId == assetId)
             .ToListAsync();
+
+    /// <summary>
+    /// 以parameter为过滤条件进行过滤搜索
+    /// </summary>
+    /// <param name="parameter">过滤条件</param>
+    /// <returns>返回过滤之后查询出的TransporationTask集合</returns>
+    public async Task<IEnumerable<TransporationTask>> GetTransporationTaskCollection(
+        GetTransporationTaskCollection parameter)
+    {
+        IQueryable<TransporationTask> linq = _context.TransporationTasks.TagWith("查询TransporationTask");
+
+        if (parameter.StartDistrictId != null)
+            linq = linq.Where(r => r.StartDistrictId == parameter.StartDistrictId);
+        if (parameter.DestinationDistrictId != null)
+            linq = linq.Where(r => r.DestinationDistrictId == parameter.DestinationDistrictId);
+
+        return await linq.ToListAsync();
+    }
 }

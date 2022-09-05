@@ -18,4 +18,5 @@ public interface IDesktopService
     Task<IEnumerable<UpkeepRecord>> GetUpkeepRecordByAssetIdAsync(int assetId);
     Task<Department> GetDepartmentById(int departmentId);
     Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetId(int assetId);
+    Task<IEnumerable<TransporationTask>> GetTransporationTaskCollection(GetTransporationTaskCollection parameter);
 }

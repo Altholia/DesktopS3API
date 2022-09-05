@@ -262,4 +262,30 @@ public class DesktopController : ControllerBase
         return Ok(dtoCollection);
     }
 
+    /// <summary>
+    /// 以parameter为过滤条件进行过滤搜索
+    /// </summary>
+    /// <param name="parameter">过滤条件</param>
+    /// <returns>返回查询到的TransporationTask集合</returns>
+    [HttpPost("TransporationTask")]
+    public async Task<ActionResult<TransporationTaskDisplay>> GetTransporationTaskCollection(
+        [FromBody] GetTransporationTaskCollection parameter)
+    {
+        if (parameter == null)
+        {
+            _logger.LogError("用户输入的参数为空");
+            return BadRequest();
+        }
+
+        IEnumerable<TransporationTask> transporationTasks = await _service.GetTransporationTaskCollection(parameter);
+        if (transporationTasks == null||!transporationTasks.Any())
+        {
+            _logger.LogWarning($"{nameof(GetTransporationTaskCollection)}：没有数据");
+            return NotFound();
+        }
+
+        IEnumerable<TransporationTaskDisplay> dtoCollection =
+            _mapper.Map<IEnumerable<TransporationTaskDisplay>>(transporationTasks);
+        return Ok(dtoCollection);
+    }
 }

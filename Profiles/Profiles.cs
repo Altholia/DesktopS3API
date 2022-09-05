@@ -19,5 +19,6 @@ public class Profiles:Profile
         CreateMap<UpkeepRecord, UpkeepRecordDisplayDto>();
         CreateMap<AssetCategory, AssetCategoryDisplayDto>();
         CreateMap<AssetTransfer, AssetTransferDisplayDto>();
+        CreateMap<TransporationTask, TransporationTaskDisplay>();
     }
 }
