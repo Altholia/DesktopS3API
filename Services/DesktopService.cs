@@ -116,7 +116,7 @@ public class DesktopService:IDesktopService
     /// </summary>
     /// <param name="departmentId">Department的ID字段</param>
     /// <returns>返回查询到的Department实体信息</returns>
-    public async Task<Department> GetDepartmentById(int departmentId) =>
+    public async Task<Department> GetDepartmentByIdAsync(int departmentId) =>
         await _context.Departments
             .TagWith("根据departmentId获取Department")
             .FirstOrDefaultAsync(r => r.Id == departmentId);
@@ -126,7 +126,7 @@ public class DesktopService:IDesktopService
     /// </summary>
     /// <param name="assetId">资产ID</param>
     /// <returns>返回AssetTransfer集合</returns>
-    public async Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetId(int assetId) =>
+    public async Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetIdAsync(int assetId) =>
         await _context.AssetTransfers
             .TagWith("根据AssetId查询AssetTransfer")
             .Where(r => r.AssetId == assetId)
@@ -137,7 +137,7 @@ public class DesktopService:IDesktopService
     /// </summary>
     /// <param name="parameter">过滤条件</param>
     /// <returns>返回过滤之后查询出的TransporationTask集合</returns>
-    public async Task<IEnumerable<TransporationTask>> GetTransporationTaskCollection(
+    public async Task<IEnumerable<TransporationTask>> GetTransporationTaskCollectionAsync(
         GetTransporationTaskCollection parameter)
     {
         IQueryable<TransporationTask> linq = _context.TransporationTasks.TagWith("查询TransporationTask");
@@ -152,4 +152,14 @@ public class DesktopService:IDesktopService
 
         return await linq.ToListAsync();
     }
+
+    /// <summary>
+    /// 根据CityId查询City
+    /// </summary>
+    /// <param name="cityId">城市ID，查询条件</param>
+    /// <returns>返回city</returns>
+    public async Task<City> GetCityByIdAsync(int cityId) =>
+        await _context.Cities
+            .TagWith("根据CityId查询City")
+            .FirstOrDefaultAsync(r => r.Id == cityId);
 }

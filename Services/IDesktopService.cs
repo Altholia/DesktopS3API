@@ -16,7 +16,8 @@ public interface IDesktopService
     Task<UpkeepType> GetUpkeepTypeByNameAsync(string upkeepName);
     Task<IEnumerable<UpkeepType>> GetUpkeepTypeCollectionAsync();
     Task<IEnumerable<UpkeepRecord>> GetUpkeepRecordByAssetIdAsync(int assetId);
-    Task<Department> GetDepartmentById(int departmentId);
-    Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetId(int assetId);
-    Task<IEnumerable<TransporationTask>> GetTransporationTaskCollection(GetTransporationTaskCollection parameter);
+    Task<Department> GetDepartmentByIdAsync(int departmentId);
+    Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetIdAsync(int assetId);
+    Task<IEnumerable<TransporationTask>> GetTransporationTaskCollectionAsync(GetTransporationTaskCollection parameter);
+    Task<City> GetCityByIdAsync(int cityId);
 }

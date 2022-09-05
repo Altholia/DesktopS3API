@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using DesktopS3API.Entities;
 using DesktopS3API.Models.DisplayDto;
 
@@ -20,5 +19,6 @@ public class Profiles:Profile
         CreateMap<AssetCategory, AssetCategoryDisplayDto>();
         CreateMap<AssetTransfer, AssetTransferDisplayDto>();
         CreateMap<TransporationTask, TransporationTaskDisplay>();
+        CreateMap<City, CityDisplayDto>();
     }
 }

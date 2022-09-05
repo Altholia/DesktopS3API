@@ -210,7 +210,7 @@ public class DesktopController : ControllerBase
     [HttpGet("Department/{departmentId:int}")]
     public async Task<ActionResult<DepartmentDisplayDto>> GetDepartmentById([FromRoute] int departmentId)
     {
-        Department department = await _service.GetDepartmentById(departmentId);
+        Department department = await _service.GetDepartmentByIdAsync(departmentId);
         if (department == null)
         {
             _logger.LogWarning($"{nameof(GetDepartmentById)}：无法查询到相关的Department信息");
@@ -229,7 +229,7 @@ public class DesktopController : ControllerBase
     [HttpGet("AssetTransfers")]
     public async Task<ActionResult<AssetTransferDisplayDto>> GetAssetTransferByAssetId([FromQuery] int assetId)
     {
-        IEnumerable<AssetTransfer> assetTransfers = await _service.GetAssetTransferByAssetId(assetId);
+        IEnumerable<AssetTransfer> assetTransfers = await _service.GetAssetTransferByAssetIdAsync(assetId);
         if (assetTransfers == null)
         {
             _logger.LogWarning($"{nameof(GetAssetTransferByAssetId)}：无法根据assetId查询AssetTransfer");
@@ -277,7 +277,7 @@ public class DesktopController : ControllerBase
             return BadRequest();
         }
 
-        IEnumerable<TransporationTask> transporationTasks = await _service.GetTransporationTaskCollection(parameter);
+        IEnumerable<TransporationTask> transporationTasks = await _service.GetTransporationTaskCollectionAsync(parameter);
         if (transporationTasks == null||!transporationTasks.Any())
         {
             _logger.LogWarning($"{nameof(GetTransporationTaskCollection)}：没有数据");
@@ -287,5 +287,24 @@ public class DesktopController : ControllerBase
         IEnumerable<TransporationTaskDisplay> dtoCollection =
             _mapper.Map<IEnumerable<TransporationTaskDisplay>>(transporationTasks);
         return Ok(dtoCollection);
+    }
+
+    /// <summary>
+    /// 根据CityId查询City
+    /// </summary>
+    /// <param name="cityId">城市ID</param>
+    /// <returns>返回City</returns>
+    [HttpGet("City/{id:int}")]
+    public async Task<ActionResult<CityDisplayDto>> GetCityById([FromRoute(Name = "Id")] int cityId)
+    {
+        City city = await _service.GetCityByIdAsync(cityId);
+        if (city == null)
+        {
+            _logger.LogWarning($"{nameof(GetCityById)}：无法通过cityId查询出对应的City");
+            return NotFound();
+        }
+
+        CityDisplayDto dto = _mapper.Map<CityDisplayDto>(city);
+        return Ok(dto);
     }
 }
