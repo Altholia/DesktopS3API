@@ -146,6 +146,9 @@ public class DesktopService:IDesktopService
             linq = linq.Where(r => r.StartDistrictId == parameter.StartDistrictId);
         if (parameter.DestinationDistrictId != null)
             linq = linq.Where(r => r.DestinationDistrictId == parameter.DestinationDistrictId);
+        if (parameter.StartDate != null && parameter.ToDate != null)
+            linq = linq.Where(r =>
+                r.ActualCompletionDate >= parameter.StartDate && r.ActualCompletionDate <= parameter.ToDate);
 
         return await linq.ToListAsync();
     }
