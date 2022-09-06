@@ -20,5 +20,6 @@ public class Profiles:Profile
         CreateMap<AssetTransfer, AssetTransferDisplayDto>();
         CreateMap<TransporationTask, TransporationTaskDisplay>();
         CreateMap<City, CityDisplayDto>();
+        CreateMap<District, DistrictDisplayDto>();
     }
 }

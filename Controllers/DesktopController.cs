@@ -307,4 +307,18 @@ public class DesktopController : ControllerBase
         CityDisplayDto dto = _mapper.Map<CityDisplayDto>(city);
         return Ok(dto);
     }
+
+    [HttpGet("District/{id:int}")]
+    public async Task<ActionResult<DistrictDisplayDto>> GetDistrictById([FromRoute(Name = "Id")] int id)
+    {
+        District district = await _service.GetDistrictByIdAsync(id);
+        if (district == null)
+        {
+            _logger.LogWarning($"{nameof(GetDistrictById)}：无法通过Id查询出对应的District");
+            return NotFound();
+        }
+
+        DistrictDisplayDto dto = _mapper.Map<DistrictDisplayDto>(district);
+        return Ok(dto);
+    }
 }

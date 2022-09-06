@@ -20,4 +20,5 @@ public interface IDesktopService
     Task<IEnumerable<AssetTransfer>> GetAssetTransferByAssetIdAsync(int assetId);
     Task<IEnumerable<TransporationTask>> GetTransporationTaskCollectionAsync(GetTransporationTaskCollection parameter);
     Task<City> GetCityByIdAsync(int cityId);
+    Task<District> GetDistrictByIdAsync(int id);
 }

@@ -162,4 +162,10 @@ public class DesktopService:IDesktopService
         await _context.Cities
             .TagWith("根据CityId查询City")
             .FirstOrDefaultAsync(r => r.Id == cityId);
+
+    public async Task<District> GetDistrictByIdAsync(int id) =>
+        await _context.Districts
+            .TagWith("根据Id查询District")
+            .Include(r=>r.City)
+            .FirstOrDefaultAsync(r => r.Id == id);
 }
