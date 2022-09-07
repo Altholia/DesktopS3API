@@ -15,6 +15,11 @@ public class Profiles:Profile
         CreateMap<TransporationTask, TransporationTaskDisplay>()
             .ForMember(des => des.Staff, res => res.MapFrom(r => r.VehicleTeamAdministratorNavigation));
 
+        CreateMap<Driver, DriverDisplayDto>()
+            .ForMember(des => des.Name, res => res.MapFrom(r => $"{r.FirstName} {r.LastName}"))
+            .ForMember(des => des.Gender, res => res.MapFrom(r => r.Gender == "F" ? "女" : "男"))
+            .ForMember(des => des.DateOfBirth, res => res.MapFrom(r => r.DateofBirth));
+
         CreateMap<Asset, AssetDisplayDto>();
         CreateMap<Department, DepartmentDisplayDto>();
         CreateMap<UpkeepType, UpkeepTypeDisplay>();

@@ -21,4 +21,5 @@ public interface IDesktopService
     Task<IEnumerable<TransporationTask>> GetTransporationTaskCollectionAsync(GetTransporationTaskCollection parameter);
     Task<City> GetCityByIdAsync(int cityId);
     Task<District> GetDistrictByIdAsync(int id);
+    Task<Driver> GetDriverFromStaffAsync(GetDriverFromStaff parameter);
 }

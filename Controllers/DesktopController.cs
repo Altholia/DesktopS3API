@@ -308,6 +308,11 @@ public class DesktopController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>
+    /// 根据id查询District
+    /// </summary>
+    /// <param name="id">District的ID字段</param>
+    /// <returns>返回查询到的District</returns>
     [HttpGet("District/{id:int}")]
     public async Task<ActionResult<DistrictDisplayDto>> GetDistrictById([FromRoute(Name = "Id")] int id)
     {
@@ -319,6 +324,25 @@ public class DesktopController : ControllerBase
         }
 
         DistrictDisplayDto dto = _mapper.Map<DistrictDisplayDto>(district);
+        return Ok(dto);
+    }
+
+    /// <summary>
+    /// 根据Staff的Name查询出Driver
+    /// </summary>
+    /// <param name="parameter">Staff的Name，由FirstName和LastName组合</param>
+    /// <returns>返回Driver</returns>
+    [HttpPost("Driver/Staff/Name")]
+    public async Task<ActionResult<Driver>> GetDriverFromStaff([FromBody] GetDriverFromStaff parameter)
+    {
+        Driver driver = await _service.GetDriverFromStaffAsync(parameter);
+        if (driver == null)
+        {
+            _logger.LogWarning($"{nameof(GetDriverFromStaff)}：无法通过staffName查询出Driver");
+            return NotFound();
+        }
+
+        DriverDisplayDto dto = _mapper.Map<DriverDisplayDto>(driver);
         return Ok(dto);
     }
 }

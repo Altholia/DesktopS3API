@@ -170,4 +170,20 @@ public class DesktopService:IDesktopService
             .TagWith("根据Id查询District")
             .Include(r=>r.City)
             .FirstOrDefaultAsync(r => r.Id == id);
+
+    /// <summary>
+    /// 根据Staff的Name查询出对应的Driver
+    /// </summary>
+    /// <param name="parameter">搜索条件，里面包含StaffName（由Staff的FirstName和LastName组合）</param>
+    /// <returns>返回Driver</returns>
+    public async Task<Driver> GetDriverFromStaffAsync(GetDriverFromStaff parameter)
+    {
+        string[] staffNames = parameter.StaffName.Split(' ');
+
+        Driver driver = await _context.Drivers
+            .TagWith("根据Staff的Name查询Driver")
+            .FirstOrDefaultAsync(r => r.FirstName == staffNames[0] && r.LastName == staffNames[1]);
+
+        return driver;
+    }
 }
