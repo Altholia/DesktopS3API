@@ -186,4 +186,14 @@ public class DesktopService:IDesktopService
 
         return driver;
     }
+
+    /// <summary>
+    /// 根据Driver的Id字段查询Vehicle
+    /// </summary>
+    /// <param name="parameter">过滤条件</param>
+    /// <returns>返回Vehicle</returns>
+    public async Task<Vehicle> GetVehicleFromDriverAsync(GetVehicleFromDriver parameter) =>
+        await _context.Vehicles
+            .TagWith("根据Driver的Id查询Vehicle")
+            .FirstOrDefaultAsync(r => r.DriverId == parameter.DriverId);
 }

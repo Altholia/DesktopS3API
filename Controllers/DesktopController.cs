@@ -345,4 +345,29 @@ public class DesktopController : ControllerBase
         DriverDisplayDto dto = _mapper.Map<DriverDisplayDto>(driver);
         return Ok(dto);
     }
+
+    /// <summary>
+    /// 根据Driver的ID查询Vehicle
+    /// </summary>
+    /// <param name="parameter">过滤条件</param>
+    /// <returns>返回Vehicle</returns>
+    [HttpPost("Vehicle/Driver/Id")]
+    public async Task<ActionResult<Vehicle>> GetVehicleFromDriver([FromBody] GetVehicleFromDriver parameter)
+    {
+        if (parameter == null)
+        {
+            _logger.LogError($"{nameof(GetVehicleFromDriver)}：过滤条件为空");
+            return BadRequest("过滤条件为空");
+        }
+
+        Vehicle vehicle = await _service.GetVehicleFromDriverAsync(parameter);
+        if (vehicle == null)
+        {
+            _logger.LogWarning($"{nameof(GetVehicleFromDriver)}：无法通过DriverId查询Vehicle");
+            return NotFound();
+        }
+
+        VehicleDisplayDto dto = _mapper.Map<VehicleDisplayDto>(vehicle);
+        return Ok(dto);
+    }
 }

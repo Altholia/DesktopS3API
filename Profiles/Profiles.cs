@@ -28,5 +28,6 @@ public class Profiles:Profile
         CreateMap<AssetTransfer, AssetTransferDisplayDto>();
         CreateMap<City, CityDisplayDto>();
         CreateMap<District, DistrictDisplayDto>();
+        CreateMap<Vehicle, VehicleDisplayDto>();
     }
 }

@@ -22,4 +22,5 @@ public interface IDesktopService
     Task<City> GetCityByIdAsync(int cityId);
     Task<District> GetDistrictByIdAsync(int id);
     Task<Driver> GetDriverFromStaffAsync(GetDriverFromStaff parameter);
+    Task<Vehicle> GetVehicleFromDriverAsync(GetVehicleFromDriver parameter);
 }
