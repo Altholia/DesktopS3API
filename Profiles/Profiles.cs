@@ -12,13 +12,15 @@ public class Profiles:Profile
             .ForMember(des => des.Name, res => res.MapFrom(r => $"{r.FirstName} {r.LastName}"))
             .ForMember(des => des.Sex, res => res.MapFrom(r => r.Gender == "M" ? "男" : "女"));
 
+        CreateMap<TransporationTask, TransporationTaskDisplay>()
+            .ForMember(des => des.Staff, res => res.MapFrom(r => r.VehicleTeamAdministratorNavigation));
+
         CreateMap<Asset, AssetDisplayDto>();
         CreateMap<Department, DepartmentDisplayDto>();
         CreateMap<UpkeepType, UpkeepTypeDisplay>();
         CreateMap<UpkeepRecord, UpkeepRecordDisplayDto>();
         CreateMap<AssetCategory, AssetCategoryDisplayDto>();
         CreateMap<AssetTransfer, AssetTransferDisplayDto>();
-        CreateMap<TransporationTask, TransporationTaskDisplay>();
         CreateMap<City, CityDisplayDto>();
         CreateMap<District, DistrictDisplayDto>();
     }

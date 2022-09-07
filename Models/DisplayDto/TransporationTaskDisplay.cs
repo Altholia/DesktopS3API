@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
+using DesktopS3API.Entities;
 
 namespace DesktopS3API.Models.DisplayDto;
 
@@ -16,5 +17,6 @@ public class TransporationTaskDisplay
     public int VehicleTeamAdministrator { get; set; }
     public string Remark { get; set; }
     public int StatusId { get; set; }
+    public StaffDisplayDto Staff{ get; set; }
 
 }
