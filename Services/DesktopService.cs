@@ -133,7 +133,7 @@ public class DesktopService:IDesktopService
             .ToListAsync();
 
     /// <summary>
-    /// 以parameter为过滤条件进行过滤搜索
+    /// 以parameter为过滤条件对TransporationTask进行过滤搜索
     /// </summary>
     /// <param name="parameter">过滤条件</param>
     /// <returns>返回过滤之后查询出的TransporationTask集合</returns>
@@ -149,6 +149,8 @@ public class DesktopService:IDesktopService
         if (parameter.StartDate != null && parameter.ToDate != null)
             linq = linq.Where(r =>
                 r.ActualCompletionDate >= parameter.StartDate && r.ActualCompletionDate <= parameter.ToDate);
+        if (parameter.TaskStatusId != null)
+            linq = linq.Where(r => r.StatusId == parameter.TaskStatusId);
 
         return await linq.ToListAsync();
     }
