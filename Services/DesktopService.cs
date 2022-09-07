@@ -152,7 +152,7 @@ public class DesktopService:IDesktopService
         if (parameter.TaskStatusId != null)
             linq = linq.Where(r => r.StatusId == parameter.TaskStatusId);
 
-        return await linq.ToListAsync();
+        return await linq.Include(r=>r.VehicleTeamAdministratorNavigation).ToListAsync();
     }
 
     /// <summary>
