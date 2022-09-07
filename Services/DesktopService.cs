@@ -151,6 +151,8 @@ public class DesktopService:IDesktopService
                 r.ActualCompletionDate >= parameter.StartDate && r.ActualCompletionDate <= parameter.ToDate);
         if (parameter.TaskStatusId != null)
             linq = linq.Where(r => r.StatusId == parameter.TaskStatusId);
+        if (parameter.StaffId != null)
+            linq = linq.Where(r => r.VehicleTeamAdministrator == parameter.StaffId);
 
         return await linq.Include(r=>r.VehicleTeamAdministratorNavigation).ToListAsync();
     }

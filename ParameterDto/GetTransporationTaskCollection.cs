@@ -17,6 +17,10 @@ public class GetTransporationTaskCollection
 
     [Display(Name = "结束时间")] 
     public DateTime? ToDate { get; set; } = null;
+
     [Display(Name="任务状态ID")] 
-    public int? TaskStatusId { get; set; }
+    public int? TaskStatusId { get; set; }= null;
+
+    [Display(Name="员工ID")] 
+    public int? StaffId { get; set; }=null;
 }
